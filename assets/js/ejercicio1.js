@@ -1,14 +1,15 @@
-let limpiarErrores = () => {
+let limpiarMensajes = () => {
 
-    let errores = document.querySelectorAll('.errorNombre , .errorAsunto , .errorMensaje');
+    let mensajes = document.querySelectorAll('.errorNombre , .errorAsunto , .errorMensaje, .resultado');
 
-    for (let i = 0; i < errores.length; i++) {
-        errores[i].innerHTML = '';
+    for (let i = 0; i < mensajes.length; i++) {
+
+        mensajes[i].innerHTML = '';
 
     }
 };
 
-let formulario = document.getElementsByTagName("form")[0];
+let formulario = document.querySelector("form");
 
 let txtNombre = document.getElementById('nombre');
 let txtAsunto = document.getElementById('asunto');
@@ -18,42 +19,65 @@ let errorNombre = document.querySelector('.errorNombre');
 let errorAsunto = document.querySelector('.errorAsunto');
 let errorMensaje = document.querySelector('.errorMensaje');
 
+let mensajeExito = document.querySelector('.resultado');
+
+let expRegLetras, nombre, asunto, mensaje, validacion;
+
 
 formulario.addEventListener('submit', (evento) => {
+
     evento.preventDefault();
-    
 
-    limpiarErrores();
+    limpiarMensajes();
 
-    let expRegLetras = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/;
+    expRegLetras = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/;
 
-    let nombre = txtNombre.value;
-    let asunto = txtAsunto.value;
-    let mensaje = txtMensaje.value;
+    nombre = txtNombre.value;
+    asunto = txtAsunto.value;
+    mensaje = txtMensaje.value;
 
-    console.log(nombre, asunto, mensaje);
+    validacion = true;
 
-    let validacionNombre = !expRegLetras.test(nombre);
-    let validacionAsunto = !expRegLetras.test(asunto);
-    let validacionMensaje = !expRegLetras.test(mensaje);
-
-    console.log(validacionNombre, validacionAsunto, validacionMensaje);
-    
+    // Validación del input nombre que sea solo letras
     if (nombre == '') {
-        errorNombre.innerHTML = 'Debe escribir Nombre';
-    } else if (validacionNombre) {
+
+        errorNombre.innerHTML = 'El nombre es requerido';
+        validacion = false;
+
+    } else if (!expRegLetras.test(nombre)) {
+
         errorNombre.innerHTML = 'Debe escribir Solo Letras';
+        validacion = false;
+
     }
 
+    // Validación del input asunto que sea solo letras
     if (asunto == '') {
-        errorAsunto.innerHTML = 'Debe escribir Asunto';
-    } else if (validacionAsunto) {
+
+        errorAsunto.innerHTML = 'El asunto es requerido';
+        validacion = false;
+
+    } else if (!expRegLetras.test(asunto)) {
+
         errorAsunto.innerHTML = 'Debe escribir Solo Letras';
+        validacion = false;
+
     }
 
+    // Validación del input mensaje que sea solo letras
     if (mensaje == '') {
-        errorMensaje.innerHTML = 'Debe escribir Mensaje';
-    } else if (validacionMensaje) {
+
+        errorMensaje.innerHTML = 'El mensaje es requerido';
+        validacion = false;
+
+    } else if (!expRegLetras.test(mensaje)) {
+
         errorMensaje.innerHTML = 'Debe escribir Solo Letras';
+        validacion = false;
+
     }
+
+    // Comprueba si la validacion fue correta, si es asi, muestra en pantalla un mensaje de exito
+    if (validacion) mensajeExito.innerHTML = 'Mensaje enviado con exito !!!';
+
 });
