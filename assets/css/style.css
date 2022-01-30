@@ -1,0 +1,30 @@
+.nav {
+    display: flex;
+}
+
+section a {
+    text-decoration: none;
+    color: black;
+    transition: color 0.5s;
+    -webkit-transition: color 0.5s;
+    -moz-transition: color 0.5s;
+    -ms-transition: color 0.5s;
+    -o-transition: color 0.5s;
+}
+
+section a:hover {
+    color: white;
+}
+
+.card {
+    background-color: white;
+    transition: background-color 0.8s;
+    -webkit-transition: background-color 0.8s;
+    -moz-transition: background-color 0.8s;
+    -ms-transition: background-color 0.8s;
+    -o-transition: background-color 0.8s;
+}
+
+.card:hover {
+    background-color: #212529;
+}
